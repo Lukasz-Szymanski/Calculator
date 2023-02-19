@@ -14,6 +14,7 @@ function clear() {
 function appendNumber(number) {
     if (number === '.' && currentOperand.includes('.')) return;
     currentOperand = currentOperand.toString() + number.toString();
+    updateDisplay();
 }
 
 function chooseOperation(operator) {
@@ -24,6 +25,7 @@ function chooseOperation(operator) {
     operation = operator;
     previousOperand = currentOperand;
     currentOperand = '';
+    updateDisplay();
 }
 
 function compute() {
@@ -50,13 +52,16 @@ function compute() {
     currentOperand = computation;
     operation = undefined;
     previousOperand = "";
+    updateDisplay();
 }
 
 function updateDisplay() {
+    let displayText = "";
     if (operation !== undefined) {
-        return;
+        displayText += previousOperand + " " + operation;
     }
-    display.value = currentOperand;
+    displayText += " " + currentOperand;
+    display.value = displayText.trim();
 }
 
 const buttons = document.querySelectorAll("button");
